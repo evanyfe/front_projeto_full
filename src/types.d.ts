@@ -1,15 +1,16 @@
 export type Product = {
-id?: number;
-name: string;
-price: string;
-barcode?: string;
-description?: string;
-quantity?: number;
-category?: string;
-expiry?: string;
-imageUrl?: string;
-createdAt?: string;
+  id: number | string;
+  name: string;
+  barcode: string;
+  description: string;
+  price: number | string; // 👈 mude pra union
+  quantity: number;
+  category: string;
+  expiry?: string;
+  imageUrl?: string;
+  createdAt?: string;
 };
+
 
 
 export type Supplier = {

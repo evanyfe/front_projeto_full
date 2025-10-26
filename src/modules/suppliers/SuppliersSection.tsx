@@ -10,7 +10,6 @@ import { maskCNPJ, maskPhoneBR } from '../../utils/masks';
 export function SuppliersSection() {
   const [rows, setRows] = useState<Supplier[]>([]);
   const [loading, setLoading] = useState(false);
-  const [busy, setBusy] = useState(false);
   const [name, setName] = useState('');
   const [cnpj, setCnpj] = useState('');
   const [address, setAddress] = useState('');
@@ -42,7 +41,9 @@ export function SuppliersSection() {
       window.location.reload();
     } catch (err: any) {
       setMsg(err?.message || 'Erro ao cadastrar fornecedor');
-      try { const j = JSON.parse(err.message); setErrors(j.fieldErrors || {}); } catch {}
+      try { const j = JSON.parse(err.message); setErrors(j.fieldErrors || {}); } catch {
+        setErrors({});
+      }
     }
   };
 

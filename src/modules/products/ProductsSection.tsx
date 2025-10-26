@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { brl } from '../../utils/currency';
 import { apiFetch, ENDPOINTS } from '../../services/api';
 import { Card } from '../../components/Card';
@@ -46,11 +46,13 @@ export function ProductsSection() {
       await load();
     } catch (err: any) {
       setMsg(err?.message || 'Erro ao cadastrar produto');
-      try { const j = JSON.parse(err.message); setErrors(j.fieldErrors || {}); } catch {}
+      try { const j = JSON.parse(err.message); setErrors(j.fieldErrors || {}); } catch {
+          // fallback: se não deu pra parsear, zera os errors
+        setErrors({});
+      }
     }
   };
 
-  const parseNum = (s: string) => Number(String(s).replace(',', '.'));
 
   return (
     <Card title="Cadastro de Produto" subtitle="Gerencie produtos" right={<Button variant="ghost" onClick={load}>Atualizar</Button>}>
@@ -118,7 +120,7 @@ export function ProductsSection() {
             { key: 'category', label: 'Categoria' },
             {
               key: 'price', label: 'Preço',
-              render: (p: any) => {
+              render: (p) => {
                 const n = Number(String(p.price).replace(',', '.'));
                 return isNaN(n) ? String(p.price) : brl.format(n);
               },

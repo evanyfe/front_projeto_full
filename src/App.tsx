@@ -1,4 +1,3 @@
-import React from 'react';
 import { ProductsSection } from './modules/products/ProductsSection';
 import { SuppliersSection } from './modules/suppliers/SuppliersSection';
 import { API_BASE_URL } from './services/api';
